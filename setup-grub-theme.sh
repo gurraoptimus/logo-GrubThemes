@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set variables
-THEME_NAME="my-theme"
+THEME_NAME="gurraoptimus-theme"
 THEME_DIR="/boot/grub/themes/$THEME_NAME"
 BACKGROUND_IMAGE="background.png"
 FONT_FILE="font.pf2"
