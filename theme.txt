@@ -1,0 +1,73 @@
+# theme.txt - All-in-One GRUB Theme Configuration
+
+# Background Image
+desktop-image: "background.png"
+
+# Fonts
+title-font: "font.pf2"
+menu-font: "font.pf2"
+
+# Menu Styling
+menu {
+    horizontal-align: center;
+    vertical-align: center;
+    width: 50%;
+    height: auto;
+    item-height: 40;
+    margin: 10;
+    padding: 5;
+    icon-size: 32;
+    item-border-width: 1;
+
+    # Colors
+    background-color: "black";
+    border-color: "gray";
+    item-border-color: "white";
+    color: "white";                  # Normal menu item color
+    selected-color: "cyan";          # Highlighted menu item color
+    selected-background-color: "blue";  # Background for the selected menu item
+}
+
+# Progress Bar
+progress_bar {
+    height: 5;
+    border-width: 1;
+    border-color: "white";
+    background-color: "black";
+    foreground-color: "green";
+}
+
+# Icons for Menu Entries
++ boot_menu {
+    item {
+        name: "Ubuntu";
+        icon: "icons/linux.png";
+    }
+    item {
+        name: "Windows";
+        icon: "icons/windows.png";
+    }
+    item {
+        name: "Recovery";
+        icon: "icons/recovery.png";
+    }
+}
+
+# Timeout Box
++ timeout_box {
+    horizontal-align: center;
+    vertical-align: bottom;
+    width: 20%;
+    height: 50px;
+    background-color: "black";
+    border-color: "white";
+    foreground-color: "cyan";
+    text-color: "yellow";
+}
+
+# Textbox Styling (Optional)
++ text_box {
+    background-color: "black";
+    text-color: "white";
+    border-color: "gray";
+}
