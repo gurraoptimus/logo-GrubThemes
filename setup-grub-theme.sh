@@ -5,7 +5,7 @@ THEME_NAME="gurraoptimus-theme"
 THEME_DIR="/boot/grub/themes/$THEME_NAME"
 BACKGROUND_IMAGE="background.png"
 FONT_FILE="font.pf2"
-TTF_FONT="your-font.ttf"  # Ensure this is set to your-font.ttf
+TTF_FONT="Jersey_15"  # Ensure this is set to your-font.ttf
 ICONS_DIR="icons"
 
 # Create the theme directory
