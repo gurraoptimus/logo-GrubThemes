@@ -3,7 +3,7 @@
 # Set variables
 THEME_NAME="gurraoptimus-theme"
 THEME_DIR="/boot/grub/themes/$THEME_NAME"
-BACKGROUND_IMAGE="https://gurraoptimus.se/img/github.jpg"
+BACKGROUND_IMAGE="background.png"
 FONT_FILE="font.pf2"
 TTF_FONT="Jersey15-Regular.ttf"
 ICONS_DIR="icons"
