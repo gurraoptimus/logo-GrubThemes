@@ -5,30 +5,48 @@ THEME_NAME="gurraoptimus-theme"
 THEME_DIR="/boot/grub/themes/$THEME_NAME"
 BACKGROUND_IMAGE="https://gurraoptimus.se/img/github.jpg"
 FONT_FILE="font.pf2"
-TTF_FONT="Jersey_15"  # Ensure this is set to your-font.ttf
+TTF_FONT="Jersey15-Regular.ttf"
 ICONS_DIR="icons"
+
+# Ensure the script is run with sudo
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root. Use sudo."
+    exit 1
+fi
+
+# Check for required files
+if [[ ! -f "$BACKGROUND_IMAGE" ]]; then
+    echo "Error: Background image '$BACKGROUND_IMAGE' not found."
+    exit 1
+fi
+
+if [[ ! -f "$TTF_FONT" ]]; then
+    echo "Error: Font file '$TTF_FONT' not found."
+    exit 1
+fi
+
+if [[ ! -d "$ICONS_DIR" ]]; then
+    echo "Error: Icons directory '$ICONS_DIR' not found."
+    exit 1
+fi
 
 # Create the theme directory
 echo "Creating theme directory at $THEME_DIR..."
-sudo mkdir -p "$THEME_DIR/$ICONS_DIR"
+mkdir -p "$THEME_DIR/$ICONS_DIR"
 
 # Copy assets
 echo "Copying assets to $THEME_DIR..."
-sudo cp "$BACKGROUND_IMAGE" "$THEME_DIR/"
-sudo cp -r "$ICONS_DIR/"* "$THEME_DIR/$ICONS_DIR/"
+cp "$BACKGROUND_IMAGE" "$THEME_DIR/"
+cp -r "$ICONS_DIR/"* "$THEME_DIR/$ICONS_DIR/"
 
 # Generate font file
-if [[ -f "$TTF_FONT" ]]; then
-    echo "Generating GRUB font from $TTF_FONT..."
-    grub-mkfont -o "$FONT_FILE" "$TTF_FONT"
-    sudo mv "$FONT_FILE" "$THEME_DIR/"
-else
-    echo "Font file $TTF_FONT not found. Skipping font generation."
-fi
+echo "Generating GRUB font from $TTF_FONT..."
+grub-mkfont -o "$FONT_FILE" "$TTF_FONT"
+mv "$FONT_FILE" "$THEME_DIR/"
 
 # Create theme.txt
 echo "Creating theme.txt..."
-cat <<EOL | sudo tee "$THEME_DIR/theme.txt" > /dev/null
+cat <<EOL > "$THEME_DIR/theme.txt"
 # theme.txt - GRUB Theme Configuration
 
 # Background Image
@@ -89,12 +107,12 @@ EOL
 
 # Configure GRUB to use the theme
 echo "Configuring GRUB to use the new theme..."
-sudo sed -i '/^GRUB_THEME=/d' /etc/default/grub
-echo "GRUB_THEME=\"$THEME_DIR/theme.txt\"" | sudo tee -a /etc/default/grub > /dev/null
+sed -i '/^GRUB_THEME=/d' /etc/default/grub || true
+echo "GRUB_THEME=\"$THEME_DIR/theme.txt\"" >> /etc/default/grub
 
 # Update GRUB
 echo "Updating GRUB..."
-sudo update-grub
+update-grub
 
 # Completion message
 echo "GRUB theme setup complete! Reboot to see the changes."
